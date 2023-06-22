@@ -1,0 +1,7 @@
+{
+  "name": "camera-webrtc-angular13",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "custom"
+}

@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <button type="button" class="text-sm font-bold">
+        <ion-icon name="camera"></ion-icon>
+        <span class="text-sm font-bold">
+          requestPermission
+        </span>
+      </button>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="flex flex-col p-4 items-center justify-center text-sm">
+    <br>
+    <p class="mb-2 p-2" [ngClass]="statePermission ?' bg-green-50 text-green-700': 'bg-red-50 text-red-700' ">
+      ขออนุญาตเข้าถึงกล้อง : {{
+      requestMsg }}
+    </p>
+    <div class="h-[1px] bg-gray-300 w-full"></div>
+    <br>
+    <button *ngIf="!statePermission" (click)="requestPermissions()" type="button"
+      class="flex items-center h-10 px-6 rounded-md bg-violet-50 text-violet-700 hover:bg-violet-100">
+      <ion-icon name="videocam-outline"></ion-icon> &nbsp;
+      ขออนุญาตเข้าถึงกล้อง
+    </button>
+
+    <button *ngIf="statePermission && stateCamera" (click)="openModal()" type="button"
+      class="flex items-center h-10 px-6 rounded-md bg-green-50 text-green-700 hover:bg-green-100">
+      <ion-icon name="videocam-outline"></ion-icon> &nbsp;
+      เปิดโมดอลกล้อง
+    </button>
+    <br>
+    <div class="w-full">
+      <p class="p-2">
+        <span class="p-2 bg-violet-50 text-violet-700"> ข้อมูลเกี่ยวกับระบบ</span><br><br>
+        อุปกรณ์: {{device}} | {{deviceType}}<br>
+        กำลังทำงานบน: {{os}} | {{osVersion}}<br>
+        หน่วยประมวลผลทั้งหมด: {{cpuCores}} แกน<br>
+        อุปกรณ์นี้มีหน่วยความจำทั้งหมด: {{memory}} กิกะไบต์ <br>
+        เว็บไซต์: {{browser}} {{browserVersion}} <br>
+        orientation: {{orientation || 'Unknown'}} <br>
+        อุปกรณ์ที่ใช้: {{userAgent}} <br><br>
+      </p>
+
+    </div>
+
+    <button *ngIf=" statePermission && !stateCamera " type="button" (click)="requestFilter()"
+      class="flex items-center h-10 mb-4 px-6 rounded-md bg-sky-50 text-sky-700 hover:bg-sky-100">
+      <ion-icon name="camera-outline"></ion-icon> &nbsp;
+      ฟิลเตอร์กล้อง
+    </button>
+    <div *ngIf="stateCamera" class="w-full">
+      <p class="p-2">
+        <span class="bg-violet-50 text-violet-700">ข้อมูลเกี่ยวกับกล้อง</span><br>
+        กล้องสามารถใช้งานได้ทั้งหมด {{cameras.length}} ตัว<br>
+        อัตราส่วนปัจจุบัน : {{ratio[0] || 'unknow'}} และ {{ratio[1] || 'unknow'}}<br>
+      </p>
+    </div>
+
+    <div class="w-full text-sm"><br>
+      <div *ngFor="let camera of cameras">
+        <div class="max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow mb-2">
+          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">{{camera.side}}</h5>
+          <p class="mb-3 text-gray-700">
+            {{camera.label}}
+            {{camera.deviceId}}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <video #video playsInline autoplay class="hidden"></video>
+  </div>
+</ion-content>

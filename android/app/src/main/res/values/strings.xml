@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">camera-webrtc-angular13</string>
+    <string name="title_activity_main">camera-webrtc-angular13</string>
+    <string name="package_name">camera.webrtc.angular13</string>
+    <string name="custom_url_scheme">camera.webrtc.angular13</string>
+</resources>
